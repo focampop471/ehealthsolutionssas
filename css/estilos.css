@@ -1,3 +1,4 @@
+/* INICIO: Estilos generales */
 @import url(https://fonts.googleapis.com/css?family=Anton|BenchNine|BioRhyme|Cabin|Cinzel|Noto+Serif|Open+Sans+Condensed:300|Roboto);
 
 body{
@@ -24,6 +25,41 @@ h3{
   font-size: 1.5em;
 }
 
+section{
+  color: #ffffff;
+  background-color: #000000;
+  margin-left: 100px;
+  margin-right: 100px;
+  border: 2px solid #000000;
+}
+
+section header{
+  font-family: 'Anton', sans-serif;
+  font-size: 40px;
+}
+
+section img{
+	opacity: 2;
+}
+
+article{
+  margin: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  /*border: 2px dotted #ffffff;*/
+}
+
+input{
+  font-family: "Trebuchet MS";
+}
+
+input:focus {
+  background-color: #04B486;
+}
+
+/* FIN: Estilos generales */
+
+/* INICIO: Encabezado general */
 #encabezado{
 	height: 120px;
 	margin: 0px;
@@ -59,45 +95,14 @@ h3{
 	margin-top: 0px;
 	margin-right: 40px;
 }
-
-section{
-  color: #ffffff;
-  background-color: #000000;
-  margin-left: 100px;
-  margin-right: 100px;
-  border: 2px solid #000000;
-}
-
-section header{
-  font-family: 'Anton', sans-serif;
-  font-size: 40px;
-}
-
-section img{
-	opacity: 2;
-}
-
-article{
-  margin: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  /*border: 2px dotted #ffffff;*/
-}
-
-input{
-  font-family: "Trebuchet MS";
-}
-
-input:focus {
-  background-color: #04B486;
-}
+/* FIN: Encabezado general */
 
 #principal{
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-/* INICIO: Estilos para el acordeon del index */
+/* INICIO: Estilos para el index */
 .easy-accordion{display:block;position:relative;overflow:hidden;padding:0;margin:0;font-size:10px;color:#000000;}
 .easy-accordion dt,.easy-accordion dd{margin:0;padding:0;}
 .easy-accordion dt,.easy-accordion dd{position:absolute}
@@ -122,7 +127,6 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 #noticias .active .slide-number{color:#fff}
 #noticias a{color:#68889b}
 #noticias dd img{float:right;margin:0 0 0 30px;position:relative;top:-20px}
-/* FIN: Estilos para el acordeon del index */
 
 #principal #titulo{
 	border: 1px solid #000000;
@@ -141,10 +145,6 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 
 #galeria{
 	margin-bottom: 20px;
-}
-
-#productos{
-	
 }
 
 #productos #listado{
@@ -173,7 +173,9 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 	font-family: 'Noto Serif', serif;
 	font-size: 20px;
 }
+/* FIN: Estilos para el index */
 
+/* INICIO: Estilos para Quienes somos */
 #plan_estrategico #seccion{
 	height: 230px;
 }
@@ -201,7 +203,9 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 	position: relative;
 	margin-left: 20px;
 }
+/* FIN: Estilos para Quienes somos */
 
+/* INICIO: Estilos para los productos */
 #principal #pestanas{
 	height: 250px;
 }
@@ -238,11 +242,13 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 	width: 80%;
 	margin-left: 20px;
 }
+/* FIN: Estilos para los productos */
 
 #contacto{
 	margin-top: 20px;
 }
 
+/* INICIO: Estilos para el pie de pagina */
 #pie{
 	margin: 0px;
 	margin-top: 20px;
@@ -250,3 +256,4 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 	text-align: center;
 	margin-bottom: 20px;
 }
+/* FIN: Estilos para el pie */
