@@ -106,13 +106,13 @@ input:focus {
 .easy-accordion{display:block;position:relative;overflow:hidden;padding:0;margin:0;font-size:10px;color:#000000;}
 .easy-accordion dt,.easy-accordion dd{margin:0;padding:0;}
 .easy-accordion dt,.easy-accordion dd{position:absolute}
-.easy-accordion dt{margin-bottom:0;margin-left:0;z-index:5;/* Safari */ -webkit-transform: rotate(-90deg); /* Firefox */ -moz-transform: rotate(-90deg);-moz-transform-origin: 20px 0px;  /* Internet Explorer */ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);cursor:pointer;}
+.easy-accordion dt{margin-bottom:0;margin-left:0;z-index:5;/* Safari */ -webkit-transform: rotate(-90deg); /* Firefox */ -moz-transform: rotate(-90deg);-moz-transform-origin: 20px 0px;  /* Internet Explorer */ cursor:pointer}
 .easy-accordion dd{z-index:1;opacity:0;overflow:hidden}
 .easy-accordion dd.active{opacity:1;}
 .easy-accordion dd.no-more-active{z-index:2;opacity:1}
 .easy-accordion dd.active{z-index:3}
 .easy-accordion dd.plus{z-index:4}
-.easy-accordion .slide-number{position:absolute;bottom:0;left:10px;font-weight:normal;font-size:1.1em;/* Safari */ -webkit-transform: rotate(90deg); /* Firefox */ -moz-transform: rotate(90deg);  /* Internet Explorer */ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);}
+.easy-accordion .slide-number{position:absolute;bottom:0;left:10px;font-weight:normal;font-size:1.1em;/* Safari */ -webkit-transform: rotate(90deg); /* Firefox */ -moz-transform: rotate(90deg);  /* Internet Explorer */}
 
 dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 
@@ -153,23 +153,23 @@ dd p{line-height:120%; font-size:15px;font-family: 'BioRhyme', serif;}
 	height: 210px;
 }
 
-#productos #listado #separador{
+#productos #listado .separador{
 	float: left;
 	width: 100px;
 	height: 100%;
 }
 
-#productos #listado #producto{
+#productos #listado .producto{
 	margin-top: 30px;
 	width: 35%;
 	float: left;
 }
 
-#productos #listado #producto #imagen{
+#productos #listado .producto .imagen{
 	text-align: center;
 }
 
-#productos #listado #producto #texto{
+#productos #listado .producto .texto{
 	font-family: 'Noto Serif', serif;
 	font-size: 20px;
 }
