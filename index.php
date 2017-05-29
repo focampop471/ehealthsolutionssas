@@ -1,8 +1,38 @@
+<?php
+require_once("constantes.inc.php");
+
+//Incluyo las clases a utilizar
+require_once(ROOT_DIR_CLASES . "FactoryBaseDatos.php");
+require_once(ROOT_DIR_CLASES . "Noticia.php");
+require_once(ROOT_DIR_CLASES . "NoticiaSeccion.php");
+require_once(ROOT_DIR_CLASES . "Producto.php");
+require_once(ROOT_DIR_CLASES . "Visita.php");
+
+//Instancio las clases requeridas
+$Noticia 			= new Noticia();
+$NoticiaSeccion 	= new NoticiaSeccion();
+$Producto 			= new Producto();
+$Visita 			= new Visita();
+
+//Inicializo la conexion a la base de datos correspondientes
+$Noticia 			-> crearBD("ehealth");
+$NoticiaSeccion 	-> crearBD("ehealth");
+$Producto		 	-> crearBD("ehealth");
+$Visita		 		-> crearBD("ehealth");
+	
+//Registro la visita
+$Visita -> registrarVisita();
+//Consulto las noticias activas
+$Noticias = $Noticia -> consultar("WHERE not_activo = 1 ORDER BY not_nts_id ASC, not_fecha DESC");
+//Consulto los productos activos
+$Productos = $Producto -> consultar("WHERE prd_activo = 1", 2);
+$Visitas = $Visita -> consultar();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta name="description" content="Página web propia">
-	<meta charset="utf-8">
+	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width">
 	<title>eHealth Solutions S.A.S.</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css">
@@ -55,43 +85,37 @@
       </header>
 	  <div id="noticias">
       	<dl>
-        	<dt class="active">Clientes</dt>
+<?php
+	//Si existen noticias
+	if(sizeof($Noticias))
+	{
+		$iteracion = 0;
+		//Consulto las secciones
+		$NoticiaSecciones = $NoticiaSeccion -> consultar();
+
+		foreach ($NoticiaSecciones as $ObjNoticiaSeccion)
+			$secciones[$ObjNoticiaSeccion -> getNtsId()] = $ObjNoticiaSeccion -> getNtsNombre();
+
+		foreach ($Noticias as $ObjNoticia)
+		{
+?>
+        	<dt <?php if(!$iteracion) echo "class='active'";?> ><?=$secciones[$ObjNoticia -> getNotNtsId()]?></dt>
             <dd>
-				<h2>Children's Hospital of Pittsburgh of UPMC</h2>
-				<p>
-					Children's Hospital of Pittsburgh of UPMC ha adquirido nuestro software eRL 
-					con el cual espera mejorar la prestaci&oacute;n de sus servicios disminuyendo los
-					accidentes laborales de sus empleados.
+				<h2><?=$ObjNoticia -> getNotTitulo()?></h2>
+				<p><?=$ObjNoticia -> getNotTexto()?>
 				</p>
 			</dd>
-            <dt>Casos de &eacute;xito</dt>
-            <dd>
-				<h2>Orange S.A. evidencia mejoras en el clima laboral</h2>
-				<p>
-					Dentro de los indicadores de clima laboral se ha evidenciado una mejora importante
-					de la fuerza de trabajo en terreno. Esto se debe a que los accidentes laborales han 
-					disminuido en un 17% desde la implementaci&oacute;n de eRL.
-				</p>
-			</dd>
-            <dt>Clima laboral</dt>
-            <dd>
-				<h2>Ampliaci&oacute;n de nuestras oficinas en Bogot&aacute; D.C., Colombia</h2>
-				<p>
-					Recientemente nos trasladamos a nuestra nueva sede, la cual se encuentra ubicada
-					estrat&eacute;gicamente para permitirnos estar m&aacute;s cerca de nuestros clientes.
-					Adem&aacute;s es mucho m&aacute;s amplia y con nuevas prestaciones y servicios para
-					nuestros colaboradores. 
-				</p>
-			</dd>
-            <dt>Tecnolog&iacute;a</dt>
-                <dd>
-                	<h2>eRL Cloud versi&oacute;n 1.0</h2>
-                	<p>
-                		Pr&oacute;ximamente esperamos dar lanzamiento a nuestra primera versi&oacute;n de
-                		eRL Cloud. Esto nos permitir&aacute; centralizar nuestra operaci&oacute;n y mejorar
-                		la atenci&oacute;n a nuestros clientes.
-                	</p>
-                </dd>
+<?php
+			$iteracion++;
+		}
+	}
+	else
+	{
+?>
+            <dd>No se encontraron noticias</dd>
+<?php
+	}
+?>
            </dl>
         </div>
     </article>
@@ -102,30 +126,61 @@
         Nuestros productos
       </header>
       <div id="listado">
+<?php
+	//Si existen productos
+	if(sizeof($Productos))
+	{
+		//Recorro los productos 
+		foreach ($Productos as $ObjProducto)
+		{
+?>
       	<div class="separador"></div>
       	<div class="producto">
       		<div class="imagen">
-      			<img src="img/erl.png" height="100" alt="erl" />
+      			<img src="<?=HTTP_DIRECTORY_IMG?><?=$ObjProducto -> getPrdImagen()?>" height="100" alt="<?=$ObjProducto -> getPrdNombre()?>" />
       		</div>
       		<div class="texto">
-      			<strong>eHealth Riesgos Laborales:</strong> Permite la gesti&oacute;n de vigilancia epidemiol&oacute;gica.
+      			<strong><?=$ObjProducto -> getPrdNombre()?>:</strong>
+				<?=$ObjProducto -> getPrdDescripcion()?>
       		</div>
       	</div>
+<?php
+		}
+?>
       	<div class="separador"></div>
-      	<div class="producto">
-      		<div class="imagen">
-      			<img src="img/geriscar.png" height="100" alt="geriscar" />
-      		</div>
-      		<div class="texto">
-      			<strong>Geriscar:</strong> Permite la gesti&oacute;n del riesgo de las enfermedades cr&oacute;nicas no transmisibles.
-      		</div>
-      	</div>
-      	<div class="separador"></div>
+<?php
+	}
+	else
+	{
+?>
+            <div class="producto">No se encontraron productos</div>
+<?php
+	}
+?>
       </div>
     </article>
   </section>
   <section id="pie">
-  	&copy; eHealth Solutions S.A.S. 2017.
+  	&copy; eHealth Solutions S.A.S. 2017.<br/><br/>
+	<strong>Visitas:</strong>
+<?php
+	//Si existen visitas
+	if(sizeof($Visitas))
+	{
+		foreach ($Visitas as $ObjVisita)
+		{
+?>
+        	<?=$ObjVisita -> getVisCantidad()?>
+<?php
+		}
+	}
+	else
+	{
+?>
+			0
+<?php
+	}
+?>
   </section>
 </body>
 </html>
