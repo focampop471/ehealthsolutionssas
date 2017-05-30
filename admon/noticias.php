@@ -64,6 +64,7 @@ switch($_REQUEST["opcion"])
 		$Noticia -> setNotTexto($_REQUEST["texto"]);
 		$Noticia -> setNotNtsId($_REQUEST["nts_id"]);
 		$Noticia -> setNotActivo(!isset($_REQUEST["activo"]) ? 0 : 1);
+		$Noticia -> setNotUsuId($_SESSION["usu_id"]);
 		$id = $Noticia -> insertar();
 		
 		//Si el registro se actualizo entonces direcciono a la opcion de listar
@@ -105,6 +106,7 @@ switch($_REQUEST["opcion"])
 			$Noticia -> setNotTexto($_REQUEST["texto"]);
 			$Noticia -> setNotNtsId($_REQUEST["nts_id"]);
 			$Noticia -> setNotActivo(!isset($_REQUEST["activo"]) ? 0 : 1);
+			$Noticia -> setNotUsuId($_SESSION["usu_id"]);
 			$registros_actulizados = $Noticia -> actualizar();
 			
 			//Si el registro se actualizo entonces direcciono a la opcion de listar

@@ -8,7 +8,7 @@ CREATE TABLE usuario(
 	usu_apellidos VARCHAR(100) NOT NULL,
 	usu_contrasena VARCHAR(20) NOT NULL,
 	usu_activo BOOL NOT NULL
-);
+)TYPE=InnoDB;
 
 ALTER TABLE usuario ADD CONSTRAINT usu_id_pk PRIMARY KEY (usu_id);
 ALTER TABLE usuario MODIFY COLUMN usu_id INT AUTO_INCREMENT;
@@ -22,7 +22,7 @@ CREATE TABLE producto(
 	prd_texto TEXT,
 	prd_imagen VARCHAR(100),
 	prd_activo BOOL NOT NULL
-);
+)TYPE=InnoDB;
 
 ALTER TABLE producto ADD CONSTRAINT prd_id_pk PRIMARY KEY (prd_id);
 ALTER TABLE producto MODIFY COLUMN prd_id INT AUTO_INCREMENT;
@@ -34,7 +34,7 @@ CREATE TABLE noticia_seccion(
 	nts_id INT NOT NULL,
 	nts_nombre VARCHAR(100) NOT NULL,
 	nts_activo BOOL NOT NULL
-);
+)TYPE=InnoDB;
 
 ALTER TABLE noticia_seccion ADD CONSTRAINT nts_id_pk PRIMARY KEY (nts_id);
 ALTER TABLE noticia_seccion MODIFY COLUMN nts_id INT AUTO_INCREMENT;
@@ -49,7 +49,7 @@ CREATE TABLE noticia(
 	not_activo BOOL NOT NULL,
 	not_nts_id INT NOT NULL,
 	not_usu_id INT NOT NULL
-);
+)TYPE=InnoDB;
 
 ALTER TABLE noticia ADD CONSTRAINT not_id_pk PRIMARY KEY (not_id);
 ALTER TABLE noticia MODIFY COLUMN not_id INT AUTO_INCREMENT;
@@ -60,7 +60,7 @@ ALTER TABLE noticia ADD CONSTRAINT not_usu_id_fk FOREIGN KEY (not_usu_id) REFERE
 CREATE TABLE visita(
 	vis_id TINYINT NOT NULL,
 	vis_cantidad BIGINT UNSIGNED
-);
+)TYPE=InnoDB;
 
 ALTER TABLE visita ADD CONSTRAINT vis_id_pk PRIMARY KEY (vis_id);
 ALTER TABLE visita MODIFY COLUMN vis_id TINYINT AUTO_INCREMENT;
