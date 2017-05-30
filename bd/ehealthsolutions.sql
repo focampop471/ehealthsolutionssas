@@ -57,6 +57,24 @@ ALTER TABLE noticia ADD CONSTRAINT not_nts_id_fk FOREIGN KEY (not_nts_id) REFERE
 ALTER TABLE noticia ADD CONSTRAINT not_usu_id_fk FOREIGN KEY (not_usu_id) REFERENCES usuario(usu_id);
 
 
+CREATE TABLE direcciones
+(
+dir_id INT NOT NULL,
+dir_nombres VARCHAR(100) NOT NULL,
+dir_apellidos VARCHAR(100) NOT NULL,
+dir_correo VARCHAR(100) NOT NULL,
+dir_telefono VARCHAR(100) NOT NULL,
+dir_celular VARCHAR(100) NOT NULL,
+dir_direccion VARCHAR(100) NOT NULL,
+dir_ciudad VARCHAR(100) NOT NULL,
+dir_departamento VARCHAR(100) NOT NULL
+
+)TYPE=InnoDB;
+
+ALTER TABLE direcciones ADD CONSTRAINT dir_id_pk PRIMARY KEY (dir_id);
+ALTER TABLE direcciones MODIFY COLUMN dir_id TINYINT AUTO_INCREMENT;
+
+
 CREATE TABLE visita(
 	vis_id TINYINT NOT NULL,
 	vis_cantidad BIGINT UNSIGNED
