@@ -1,0 +1,253 @@
+<?php
+ob_start();
+// Inicio la sesion
+session_start();
+error_reporting(E_ALL ^ E_DEPRECATED);
+require_once("../constantes.inc.php");
+
+//Incluyo las clases a utilizar
+require_once(ROOT_DIR_CLASES . "FactoryBaseDatos.php");
+require_once(ROOT_DIR_CLASES . "Usuario.php");
+
+//Instancio las clases requeridas
+$Usuario = new Usuario();
+
+//Inicializo la conexion a la base de datos correspondientes
+$Usuario -> crearBD("ehealth");
+$mensaje_error = "";
+
+//Si la opcion no existe o es login
+if(!isset($_REQUEST["opcion"]))
+{
+	//Si la session existe entonces permito que continue con la misma
+	if (isset($_SESSION["usu_id"]) and is_numeric($_SESSION["usu_id"]))
+		$_REQUEST["opcion"] = "bienvenida";
+	else
+		$_REQUEST["opcion"] = "";
+	
+}
+else
+{
+	switch($_REQUEST["opcion"])
+	{
+		case "guardar_libreta":
+		{
+			$nombre = $_REQUEST["nombre"];
+			$apellido = $_REQUEST["apellido"];
+			$correo = $_REQUEST["correo"];
+			$telefono = $_REQUEST["telefono"];
+			$celular = $_REQUEST["celular"];
+			$direccion = $_REQUEST["direccion"];
+			$ciudad = $_REQUEST["ciudad"];
+			$departamento = $_REQUEST["departamento"];
+			
+			$query = "
+			INSERT INTO direcciones values('$nombre','$apellido','$correo','$telefono','$celular','$direccion','$ciudad','$departamento')";
+			echo "<script>alert($query);</script>";
+			$conexion = mysql_connect("localhost", "root","");
+			mysql_database("ehealthsolutions",$conexion);
+			$q = mysql_query($query,$conexion);
+		}
+		break;
+	}
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="description" content="eHealth Solutions S.A.S.">
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width">
+	<title>eHealth Solutions S.A.S.</title>
+	<link rel="stylesheet" type="text/css" href="../css/estilos.css">
+	<link rel="SHORTCUT ICON" href="<?=HTTP_DIRECTORY_IMG?>favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+  <header>
+  	<section id="encabezado">
+  	  <img src="../img/logo.png" id="logo" alt="eHealth Solutions S.A.S." />
+  	  <nav>
+<?php
+	if ($_REQUEST["opcion"] != "")
+	{
+?>
+  	  	<ul>
+  	  	  <li><a href="index.php">Inicio</a></li>
+		  <li><a href="noticias.php">Noticias</a></li>
+		  <li><a href="productos.php">Productos</a></li>
+  	  	  <li><a href="index.php?opcion=salir">Salir</a></li>
+  	  	</ul>
+<?php
+	}
+?>
+  	  </nav>
+  	</section>
+  </header>
+  <section id="principal">
+    <article>
+      <header>
+        <?=$_REQUEST["opcion"] == "" ? "Ingreso" : "Bienvenid@, ".$_SESSION["usu_nombres"]."!"?>
+      </header>
+<?php
+	if ($_REQUEST["opcion"] == "")
+	{
+?>
+	  <p>
+        Ingrese sus datos en el formulario que se encuentra a continuaci&oacute;n:
+      </p>
+      <form method="post" autocomplete="off"  id="libreta-button" action="javascript:void(0)">
+      	<table class="tablaFormulario" width="100%">
+      		<tr>
+      			<td colspan="2" align="center">
+					<h3><?=$mensaje_error?></h3>
+      			</td>
+      		</tr>
+			<tr>
+      			<td width="50%" align="right">
+      				<label>Nombres:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="nombre" placeholder="Ingrese su nombre" required id="nombre" />
+            	</td>
+      		</tr>
+      		<tr>
+      			<td width="50%" align="right">
+      				<label>Apellidos:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="apellidos" placeholder="Ingrese su apellido" required id="apellido"/>
+            	</td>
+      		</tr>
+			
+			<tr>
+      			<td width="50%" align="right">
+      				<label>Correo:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="correo" placeholder="Ingrese su correo" required id="correo"/>
+            	</td>
+      		</tr>
+			
+			<tr>
+      			<td width="50%" align="right">
+      				<label>Telefono:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="telefono" placeholder="Ingrese su telefono" required id="telefono"/>
+            	</td>
+      		</tr>
+			
+			<tr>
+      			<td width="50%" align="right">
+      				<label>Celular:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="celular" placeholder="Ingrese su celular" required id="celular"/>
+            	</td>
+      		</tr>
+			
+			<tr>
+      			<td width="50%" align="right">
+					<label>Direccion:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="direccion" placeholder="Ingrese su direccion" required id="direccion"/>
+            	</td>
+      		</tr>
+			
+			<tr>
+      			<td width="50%" align="right">
+					<label>Ciudad:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="ciudad" placeholder="Ingrese su ciudad" required id="ciudad"/>
+            	</td>
+      		</tr>
+			
+			<tr>
+      			<td width="50%" align="right">
+					<label>Departamento:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="departamento" placeholder="Ingrese su departamento" required id="departamento"/>
+            	</td>
+      		</tr>
+			
+      		<tr>
+      			<td colspan="2" align="center">
+					<input type="hidden" name="opcion" value="guardar_libreta" />
+      				<br/><input type="submit" value="Guardar" />
+      			</td>
+      		</tr>	
+      	</table>
+      </form>
+<?php
+	}
+	else
+	{
+?>
+	  <p>
+        <br/><br/>Este es el m&oacute;dulo de administraci&oacute;n de la eHealth Solutions S.A.S.<br/><br/><br/>
+      </p>
+<?php
+	}
+?>
+    </article>
+  </section>
+  <section id="pie">
+  	&copy; eHealth Solutions S.A.S. 2017.
+  </section>
+</body>
+<script>
+$(document).ready(function(){
+		$("#libreta-button").submit(function(event){
+			event.preventDefault();
+			$.ajax({
+				url:"libreta_funciones.php",
+				method:"post",
+				data:{
+					nombre: $("#nombre").val(),
+					apellido: $("#apellido").val(),
+					correo: $("#correo").val(),
+					telefono: $("#telefono").val(),
+					celular: $("#celular").val(),
+					direccion: $("#direccion").val(),
+					ciudad: $("#ciudad").val(),
+					departamento: $("#departamento").val(),
+				},
+				success:function(response){
+					alert("Datos Satisfactorios")
+					
+					$("#nombre").val("")
+					console.log(response);
+					
+					$("#apellido").val("")
+					console.log(response);
+					
+					$("#correo").val("")
+					console.log(response);
+					
+					$("#telefono").val("")
+					console.log(response);
+					
+					$("#celular").val("")
+					console.log(response);
+					
+					$("#direccion").val("")
+					console.log(response);
+					
+					$("#ciudad").val("")
+					console.log(response);
+					
+					$("#departamento").val("")
+					console.log(response);
+				},
+				error:function(response){
+					console.log(response);
+				}
+			});
+		});
+	});
+</script>
+</html>

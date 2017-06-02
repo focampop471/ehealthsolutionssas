@@ -1,0 +1,19 @@
+<?php
+$nombre = $_REQUEST["nombre"];
+$apellido = $_REQUEST["apellido"];
+$correo = $_REQUEST["correo"];
+$telefono = $_REQUEST["telefono"];
+$celular = $_REQUEST["celular"];
+$direccion = $_REQUEST["direccion"];
+$ciudad = $_REQUEST["ciudad"];
+$departamento = $_REQUEST["departamento"];
+
+$query = "
+INSERT INTO direcciones (dir_nombres, dir_apellidos, dir_correo, dir_telefono, dir_celular, dir_direccion, dir_ciudad, dir_departamento) values('$nombre','$apellido','$correo','$telefono','$celular','$direccion','$ciudad','$departamento')";
+
+$connection = mysqli_connect('localhost', 'root', '', 'ehealthsolutions');
+mysqli_query($connection, $query);
+
+// $q = mysql_query($query,$conexion);
+echo json_encode($query)
+?>
