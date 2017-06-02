@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Página web propia">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>eHealth Solutions S.A.S.</title>
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+  <link rel="stylesheet" href="css/styles.css">
+	<link rel="SHORTCUT ICON" href="img/favicon.ico">
+	<script type="text/javascript" src="js/funciones.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk73ZIi7B5RDvZMvDtRVmHoTPXj4DRf_8&callback=initMap"></script>
+</head>
+<body>
+  <header>
+  	<section id="encabezado">
+  	  <img src="img/logo.png" id="logo"/>
+  	  <nav>
+  	  	<ul>
+  	  	  <li><a href="index.html">Inicio</a></li>
+		  <li><a href="quienes_somos.html">Qui&eacute;nes somos</a></li>
+		  <li><a href="productos.html">Productos</a></li>
+  	  	  <li><a href="contacto.html">Contacto</a></li>
+  	  	</ul>
+  	  </nav>
+  	</section>
+  </header>
+  <section id="contacto">
+    <article>
+      <header>
+        Contacto
+      </header>
+      <p>
+        Permita que nuestro equipo de ventas entre en contacto con usted. Para esto ingrese sus datos 
+        en el formulario que se encuentra a continuaci&oacute;n y pronto lo contactaremos:
+      </p>
+      <form method="post" autocomplete="off">
+      	<table>
+      		<tr>
+      			<td rowspan="6">
+      				<img src="img/ejecutivos_ventas.jpg" width="500" />
+      			</td>
+      			<td rowspan="6">&nbsp;</td>
+      			<td>
+      				<label>Nombres:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="nombre" placeholder="Ingrese sus nombres" required />
+            	</td>
+      		</tr>
+      		<tr>
+      			<td>
+      				<label>Apellidos:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="apellido" placeholder="Ingrese sus apellidos" required />
+            	</td>
+      		</tr>
+      		<tr>
+      			<td>
+      				<label>Correo electr&oacute;nico:</label>
+      			</td>
+      			<td>
+            		<input type="text" name="email" placeholder="cuenta@dominio.com" required />
+            	</td>
+      		</tr>
+      		<tr>
+      			<td>
+      				<label>N&uacute;mero celular:</label>
+      			</td>
+      			<td>
+            		<input type="number" name="celular" placeholder="3xx0000000" required />
+            	</td>
+      		</tr>
+      		<tr>
+      			<td>
+      				<label>Comentarios:</label>
+      			</td>
+      			<td>
+            		<textarea name="comentarios" placeholder="Ingrese sus comentarios" cols="50" required></textarea>
+            	</td>
+      		</tr>
+      		<tr>
+      			<td colspan="2" align="center">
+      				<br/><input type="submit" value="Enviar los datos" />
+      			</td>
+      		</tr>	
+      	</table>
+      </form>
+    </article>
+  </section>
+  <section>
+  <div id="map"></div>
+    
+	
+  </section>
+  <section id="pie">
+  	&copy; eHealth Solutions S.A.S. 2017.
+  </section>
+
+</body>
+</html>
