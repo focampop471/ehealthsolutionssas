@@ -1,0 +1,17 @@
+<?php
+$query = "
+SELECT vis_cantidad FROM visita WHERE vis_id = 1";
+
+$connection = mysqli_connect('localhost', 'root', '', 'ehealthsolutions');
+$cantidad = mysqli_query($connection, $query);
+$cantidad = $cantidad->fetch_array();
+
+$query = "
+UPDATE visita SET vis_cantidad = vis_cantidad + 1 WHERE vis_id = 1";
+
+$connection = mysqli_connect('localhost', 'root', '', 'ehealthsolutions');
+mysqli_query($connection, $query);
+
+// $q = mysql_query($query,$conexion);
+echo $cantidad[0];
+?>
