@@ -6,8 +6,12 @@
 	<meta name="viewport" content="width=device-width">
 	<title>eHealth Solutions S.A.S.</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+  <link rel="stylesheet" href="css/styles.css">
 	<link rel="SHORTCUT ICON" href="img/favicon.ico">
 	<script type="text/javascript" src="js/funciones.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk73ZIi7B5RDvZMvDtRVmHoTPXj4DRf_8&callback=initMap"></script>
 </head>
 <body>
   <header>
@@ -15,9 +19,9 @@
   	  <img src="img/logo.png" id="logo"/>
   	  <nav>
   	  	<ul>
-  	  	  <li><a href="index.html">Inicio</a></li>
+  	  	  <li><a href="index.php">Inicio</a></li>
 		  <li><a href="quienes_somos.html">Qui&eacute;nes somos</a></li>
-		  <li><a href="productos.html">Productos</a></li>
+		  <li><a href="productos.php">Productos</a></li>
   	  	  <li><a href="contacto.html">Contacto</a></li>
   	  	</ul>
   	  </nav>
@@ -87,8 +91,14 @@
       </form>
     </article>
   </section>
+  <section>
+  <div id="map"></div>
+    
+	
+  </section>
   <section id="pie">
   	&copy; eHealth Solutions S.A.S. 2017.
   </section>
+
 </body>
 </html>
