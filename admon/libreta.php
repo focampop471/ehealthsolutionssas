@@ -2,54 +2,12 @@
 ob_start();
 // Inicio la sesion
 session_start();
-error_reporting(E_ALL ^ E_DEPRECATED);
-require_once("../constantes.inc.php");
 
-//Incluyo las clases a utilizar
-require_once(ROOT_DIR_CLASES . "FactoryBaseDatos.php");
-require_once(ROOT_DIR_CLASES . "Usuario.php");
-
-//Instancio las clases requeridas
-$Usuario = new Usuario();
-
-//Inicializo la conexion a la base de datos correspondientes
-$Usuario -> crearBD("ehealth");
-$mensaje_error = "";
-
-//Si la opcion no existe o es login
-if(!isset($_REQUEST["opcion"]))
+//Si la sesion no existe entonces lo direcciono al login
+if (!isset($_SESSION["usu_id"]) or !is_numeric($_SESSION["usu_id"]))
 {
-	//Si la session existe entonces permito que continue con la misma
-	if (isset($_SESSION["usu_id"]) and is_numeric($_SESSION["usu_id"]))
-		$_REQUEST["opcion"] = "bienvenida";
-	else
-		$_REQUEST["opcion"] = "";
-	
-}
-else
-{
-	switch($_REQUEST["opcion"])
-	{
-		case "guardar_libreta":
-		{
-			$nombre = $_REQUEST["nombre"];
-			$apellido = $_REQUEST["apellido"];
-			$correo = $_REQUEST["correo"];
-			$telefono = $_REQUEST["telefono"];
-			$celular = $_REQUEST["celular"];
-			$direccion = $_REQUEST["direccion"];
-			$ciudad = $_REQUEST["ciudad"];
-			$departamento = $_REQUEST["departamento"];
-			
-			$query = "
-			INSERT INTO direcciones values('$nombre','$apellido','$correo','$telefono','$celular','$direccion','$ciudad','$departamento')";
-			echo "<script>alert($query);</script>";
-			$conexion = mysql_connect("localhost", "root","");
-			mysql_database("ehealthsolutions",$conexion);
-			$q = mysql_query($query,$conexion);
-		}
-		break;
-	}
+	header("Location: index.php");
+	exit();
 }
 ?>
 <!DOCTYPE html>
@@ -68,33 +26,23 @@ else
   	<section id="encabezado">
   	  <img src="../img/logo.png" id="logo" alt="eHealth Solutions S.A.S." />
   	  <nav>
-<?php
-	if ($_REQUEST["opcion"] != "")
-	{
-?>
   	  	<ul>
   	  	  <li><a href="index.php">Inicio</a></li>
 		  <li><a href="noticias.php">Noticias</a></li>
 		  <li><a href="productos.php">Productos</a></li>
+		  <li><a href="libreta.php">Libreta</a></li>
   	  	  <li><a href="index.php?opcion=salir">Salir</a></li>
   	  	</ul>
-<?php
-	}
-?>
   	  </nav>
   	</section>
   </header>
   <section id="principal">
     <article>
       <header>
-        <?=$_REQUEST["opcion"] == "" ? "Ingreso" : "Bienvenid@, ".$_SESSION["usu_nombres"]."!"?>
+        Libreta de direcciones
       </header>
-<?php
-	if ($_REQUEST["opcion"] == "")
-	{
-?>
 	  <p>
-        Ingrese sus datos en el formulario que se encuentra a continuaci&oacute;n:
+        Ingrese los datos en el formulario que se encuentra a continuaci&oacute;n:
       </p>
       <form method="post" autocomplete="off"  id="libreta-button" action="javascript:void(0)">
       	<table class="tablaFormulario" width="100%">
@@ -182,17 +130,6 @@ else
       		</tr>	
       	</table>
       </form>
-<?php
-	}
-	else
-	{
-?>
-	  <p>
-        <br/><br/>Este es el m&oacute;dulo de administraci&oacute;n de la eHealth Solutions S.A.S.<br/><br/><br/>
-      </p>
-<?php
-	}
-?>
     </article>
   </section>
   <section id="pie">
@@ -217,31 +154,37 @@ $(document).ready(function(){
 					departamento: $("#departamento").val(),
 				},
 				success:function(response){
-					alert("Datos Satisfactorios")
+					if(response == '1')
+					{
+						alert("Registro creado!");
+						
+						$("#nombre").val("")
+						console.log(response);
+						
+						$("#apellido").val("")
+						console.log(response);
+						
+						$("#correo").val("")
+						console.log(response);
+						
+						$("#telefono").val("")
+						console.log(response);
+						
+						$("#celular").val("")
+						console.log(response);
+						
+						$("#direccion").val("")
+						console.log(response);
+						
+						$("#ciudad").val("")
+						console.log(response);
+						
+						$("#departamento").val("")
+						console.log(response);
+					}
+					else
+						alert("Se presento un error en la operacion!");
 					
-					$("#nombre").val("")
-					console.log(response);
-					
-					$("#apellido").val("")
-					console.log(response);
-					
-					$("#correo").val("")
-					console.log(response);
-					
-					$("#telefono").val("")
-					console.log(response);
-					
-					$("#celular").val("")
-					console.log(response);
-					
-					$("#direccion").val("")
-					console.log(response);
-					
-					$("#ciudad").val("")
-					console.log(response);
-					
-					$("#departamento").val("")
-					console.log(response);
 				},
 				error:function(response){
 					console.log(response);

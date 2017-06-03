@@ -29,26 +29,6 @@ else
 {
 	switch($_REQUEST["opcion"])
 	{
-		//Si la opcion es login
-		case "login":
-		case "":
-			//Si las variables existen entonces realizo la validacion
-			if(array_key_exists("usuario", $_POST) and array_key_exists("contrasena", $_POST))
-			{
-				//Invoco el metodo de login
-				if($Usuario -> login($_POST["usuario"], $_POST["contrasena"]))
-				{
-					header("Location: ".$PHP_SELF."?opcion=bienvenida");
-					exit();
-				}
-				else
-					$mensaje_error = "Datos incorrectos";
-				
-			}
-			
-			$_REQUEST["opcion"] = "";
-		break;
-		
 		//Si la opcion es salir
 		case "salir":
 			//Destruyo la session
@@ -79,13 +59,14 @@ else
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width">
 	<title>eHealth Solutions S.A.S.</title>
-	<link rel="stylesheet" type="text/css" href="<?=HTTP_DIRECTORY?>/css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="../css/estilos.css">
 	<link rel="SHORTCUT ICON" href="<?=HTTP_DIRECTORY_IMG?>favicon.ico">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
   <header>
   	<section id="encabezado">
-  	  <img src="<?=HTTP_DIRECTORY_IMG?>logo.png" id="logo" alt="eHealth Solutions S.A.S." />
+  	  <img src="../img/logo.png" id="logo" alt="eHealth Solutions S.A.S." />
   	  <nav>
 <?php
 	if ($_REQUEST["opcion"] != "")
@@ -95,6 +76,7 @@ else
   	  	  <li><a href="index.php">Inicio</a></li>
 		  <li><a href="noticias.php">Noticias</a></li>
 		  <li><a href="productos.php">Productos</a></li>
+		  <li><a href="libreta.php">Libreta</a></li>
   	  	  <li><a href="index.php?opcion=salir">Salir</a></li>
   	  	</ul>
 <?php
@@ -115,11 +97,11 @@ else
 	  <p>
         Ingrese sus datos en el formulario que se encuentra a continuaci&oacute;n:
       </p>
-      <form method="post" action="<?=$PHP_SELF?>" autocomplete="off">
-      	<table width="100%">
+      <form method="post" autocomplete="off"  id="login-button" action="javascript:void(0)">
+      	<table class="tablalogin" width="100%">
       		<tr>
       			<td colspan="2" align="center">
-					<h3><?=$mensaje_error?></h3>
+					<div id="error">&nbsp;<?=$mensaje_error?></div>
       			</td>
       		</tr>
 			<tr>
@@ -127,7 +109,7 @@ else
       				<label>Usuario:</label>
       			</td>
       			<td>
-            		<input type="text" name="usuario" placeholder="Ingrese su usuario" required />
+            		<input type="text" name="usuario" placeholder="Ingrese su usuario" required id="user" />
             	</td>
       		</tr>
       		<tr>
@@ -135,7 +117,7 @@ else
       				<label>Contrase&ntilde;a:</label>
       			</td>
       			<td>
-            		<input type="password" name="contrasena" placeholder="Ingrese su contrase&ntilde;a" required />
+            		<input type="password" name="contrasena" placeholder="Ingrese su contrase&ntilde;a" required id="password"/>
             	</td>
       		</tr>
       		<tr>
@@ -163,4 +145,26 @@ else
   	&copy; eHealth Solutions S.A.S. 2017.
   </section>
 </body>
+<script>
+	$(document).ready(function(){
+		$("#login-button").submit(function(event){
+			event.preventDefault();
+			$.ajax({
+				url:"login.php",
+				method:"post",
+				data:{
+					usuario		: $("#user").val(),
+					contrasena	: $("#password").val(),
+				},
+				success:function(response){
+					if(response == '1')
+						location.href='index.php?opcion=bienvenida';
+					else
+						$('#error').html('Error');
+					
+				}
+			});
+		});
+	});
+</script>
 </html>
